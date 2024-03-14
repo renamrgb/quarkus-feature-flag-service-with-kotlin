@@ -1,14 +1,19 @@
 package com.github.renamrgb.infra.rest.dto
 
 import com.github.renamrgb.domain.FeatureFlag
-import jakarta.validation.constraints.NotBlank
 
-data class FeatureFlagRequest(
-    @field:NotBlank(message = "'flagName' cannot be null or empty")
+data class FeatureFlagResponse(
+    val id: Long?,
     val flagName: String,
-
-    @field:NotBlank(message = "'sellerIdentifier' cannot be null or empty")
     val sellerIdentifier: String,
 ) {
-    fun toDomain(): FeatureFlag = FeatureFlag(flagName, sellerIdentifier)
+    companion object {
+        fun fromDomain(featureFlag: FeatureFlag): FeatureFlagResponse {
+            return FeatureFlagResponse(
+                id = featureFlag.id,
+                flagName = featureFlag.flagName,
+                sellerIdentifier = featureFlag.sellerIdentifier
+            )
+        }
+    }
 }
