@@ -7,5 +7,7 @@ import io.smallrye.mutiny.Uni
 
 interface FeatureFlagRepository : PanacheRepositoryBase<FeatureFlagPanacheEntity, Long> {
     fun save(featureFlag: FeatureFlag): Uni<FeatureFlag>
-
+    fun findByFlagAndIdentifier(flagName: String, sellerIdentifier: String): Uni<FeatureFlag>
+    fun delete(flagName: String, sellerIdentifier: String): Uni<Boolean>
+    fun findAllByFlag(flagName: String): Uni<List<FeatureFlag>>
 }
